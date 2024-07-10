@@ -3,8 +3,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// Check if the form is submitted via POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get form data
     $address = $_POST['address'] ?? '';
     $phone = $_POST['phone'] ?? '';
@@ -44,8 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header('Location: thank_you.html');
     exit();
 } else {
-    // If the form is not submitted via POST, redirect to the order page
-    header('Location: order.html');
+    // If the form is not submitted via POST, return a 405 Method Not Allowed error
+    header('HTTP/1.1 405 Method Not Allowed');
+    echo '405 Method Not Allowed';
     exit();
 }
 ?>
